@@ -22,7 +22,7 @@ class ConnectController: UIViewController, WKNavigationDelegate {
 
     /**
      Handle all navigation events from the webview. Cancel all navigation events that start with your `appScheme`,
-     `mxScheme`, or `atriumScheme`. Instead of post messages, we send that data via navigation events since webviews
+     or `atriumScheme`. Instead of post messages, we send that data via navigation events since webviews
      don't have a reliable postMessage API.
 
      See the post message documentation for more details:
