@@ -7,6 +7,7 @@ import WebKit
 import UIKit
 
 
+
 class ConnectController: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     /**
@@ -105,4 +106,13 @@ class ConnectController: UIViewController, WKNavigationDelegate {
         webView.load(myRequest)
     }
 
+    /**
+     Don't include this code in your app, this is just to get around ssl issues in development.
+     */
+    func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        guard let serverTrust = challenge.protectionSpace.serverTrust else { return completionHandler(.useCredential, nil) }
+        let exceptions = SecTrustCopyExceptions(serverTrust)
+        SecTrustSetExceptions(serverTrust, exceptions)
+        completionHandler(.useCredential, URLCredential(trust: serverTrust))
+    }
 }
