@@ -15,7 +15,7 @@ The most important thing to remember when implementing Connect in a WebView is t
 - `ui_message_webview_url_scheme: <your scheme>`
 - `ui_message_version: 4`
 
-When the widget is configured as above, it sends it's postMessages via navigation events in the following format:
+When the widget is configured as above, it sends postMessages via navigation events in the following format:
 
 `window.location = <your scheme>://<event><metadata>`
 
