@@ -6,7 +6,7 @@ This is a simple application that shows how to get started with embedding Connec
 1. Clone the repo: `git clone git@github.com:mxenabled/ios-connect-demo.git`.
 2. Open the xcode project in xcode.
 3. [Get a widget URL.](https://docs.mx.com/api#request_a_connect_url)
-4. Copy the URL and paste it into the [`ConnectController.swift->viewDidLoad() method](https://github.com/mxenabled/ios-connect-demo/blob/main/ConnectDemo/ConnectController.swift#L105)
+4. Copy the URL and paste it into the [ConnectController.swift->viewDidLoad() method](https://github.com/mxenabled/ios-connect-demo/blob/main/ConnectDemo/ConnectController.swift#L105)
 5. Run the application.
 
 ### Getting the widget URL
@@ -18,6 +18,8 @@ The most important thing to remember when implementing Connect in a WebView is t
 When the widget is configured as above, it sends postMessages via navigation events in the following format:
 
 `window.location = <your scheme>://<event><metadata>`
+
+In the demo app, you will want to use `appscheme` as the `ui_message_webview_url_scheme`.
 
 It is *imperative* that your native application intercept *all* navigation events. In addition to the widget events, the widget also has links to bank and/or financial institution sites. You will want to intercept these and handle them accordingly. Failure to do so may result in your WebView being replaced by the link or URL event.
 
