@@ -33,6 +33,7 @@ class ConnectController: UIViewController, WKNavigationDelegate {
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let url = navigationAction.request.url?.absoluteString
+        print("************************************", url)
         let isPostMessageFromMX = url?.hasPrefix(appScheme) == true || url?.hasPrefix(atriumScheme) == true
 
         if (isPostMessageFromMX) {
