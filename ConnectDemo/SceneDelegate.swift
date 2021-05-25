@@ -47,6 +47,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    func scene(_ scene: UIScene,
+                        openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        let incomingURL = URLContexts.first?.url
 
+        // appscheme://oauth_complete?status=success&member_guid=MBR-1
+        // appscheme://oauth_complete?status=error&member_guid=MBR-1
+        if (incomingURL?.scheme == "appscheme" && incomingURL?.host == "oauth_complete") {
+            // This is an OAuth redirect back to the app from MX
+            var status = "",
+                memberGuid = ""
+
+            let urlc = URLComponents(string: incomingURL?.absoluteString ?? "")
+
+            for item in urlc?.queryItems ?? [] {
+                switch item.name {
+                case "status":
+                    status = item.value!
+                case "member_guid":
+                    memberGuid = item.value!
+                default:
+                    print("ERROR: Unexpected item in oauth query string", item.name)
+                }
+            }
+
+            print("Recived a status of: \(status) and member of \(memberGuid)")
+        }
+    }
 }
 
