@@ -47,6 +47,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    /**
+     Handle URLs that come back to the app. This example in particuarly looks for
+     oauth success and error URLs back.
+
+     Note that it is possible to end up with a different member guid than you started
+     with. This can happen if the user tried to add a new connection, but ended up
+     using credentials they have already connected with. In this scneario we update
+     the existing member and leave the new member in PENDING, which will get deleted
+     if unused for a certain amount of time.
+     */
     func scene(_ scene: UIScene,
                         openURLContexts URLContexts: Set<UIOpenURLContext>) {
         let incomingURL = URLContexts.first?.url
