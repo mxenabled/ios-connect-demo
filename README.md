@@ -1,6 +1,6 @@
 # MXConnect Demo iOS App
 This is a simple application that shows how to get started with embedding Connect into an iOS application.
-While the links below reference PlatformAPI, this code can work with any of the APIs MX offers.
+While the links below reference the MX Platform API, this code works with any of the APIs MX offers.
 
 
 ## How to download and use the demo app
@@ -22,13 +22,13 @@ When the widget is configured as above, it sends postMessages via navigation eve
 
 In the demo app, you will want to use `appscheme` as the `ui_message_webview_url_scheme`.
 
-It is *imperative* that your native application intercept *all* navigation events. In addition to the widget events, the widget also has links to bank and/or financial institution sites. You will want to intercept these and send them to the user agent isntead of overriding the webview. Failure to do so may result in your WebView being replaced by the link or URL event.
+It is *imperative* that your native application intercept *all* navigation events. In addition to the widget events, the widget also has links to bank and/or financial institution sites. You need to intercept these and send them to the user agent instead of overriding the WebView. Failure to do so may result in your WebView being replaced by the link or URL event.
 
 You can see an example of handing events in the [`ConnectController.swift->webView(:decidePolicyFor:decisionHandler:) method`](https://github.com/mxenabled/ios-connect-demo/blob/main/ConnectDemo/ConnectController.swift#L64-L97).
 
 The widget will sometimes use `window.open` instead of an achor tag or `window.location`. There is a separate method for handling this scenario, but the same rules from above apply.
 
-You can see an example of handling these events in th [`ConnectController.swift->webView(:createWebViewWith:for:windowFeatures:) method`](https://github.com/mxenabled/ios-connect-demo/blob/main/ConnectDemo/ConnectController.swift#L105-L118)
+You can see an example of handling these events in the [`ConnectController.swift->webView(:createWebViewWith:for:windowFeatures:)` method](https://github.com/mxenabled/ios-connect-demo/blob/main/ConnectDemo/ConnectController.swift#L105-L118)
 
 
 ### Handling OAuth
