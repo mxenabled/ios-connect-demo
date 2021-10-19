@@ -6,12 +6,12 @@ While the links below reference the MX Platform API, this code works with any of
 ## How to download and use the demo app
 1. Clone the repo: `git clone git@github.com:mxenabled/ios-connect-demo.git`.
 2. Open the xcode project in xcode.
-3. [Get a widget URL.](https://docs.mx.com/api#request_a_connect_url)
+3. [Get a widget URL.](https://docs.mx.com/api#connect_request_a_url)
 4. Copy the URL and paste it into the [ConnectController.swift->widgetURL variable](https://github.com/mxenabled/ios-connect-demo/blob/main/ConnectDemo/ConnectController.swift#L33)
 5. Run the application.
 
 ### Getting the widget URL
-The most important thing to remember when implementing Connect in a WebView is that the widget talks to the iOS app through navigation events, *not* postMessages. When you embed Connect directly in a WebView, there are three [configuration options](https://docs.mx.com/api#request_a_connect_url) you'll need to set to make sure this communication happens properly:
+The most important thing to remember when implementing Connect in a WebView is that the widget talks to the iOS app through navigation events, *not* postMessages. When you embed Connect directly in a WebView, there are three [configuration options](https://docs.mx.com/api#connect_request_a_url) you'll need to set to make sure this communication happens properly:
 - `is_mobile_webview: true`
 - `ui_message_webview_url_scheme: <your scheme>`
 - `ui_message_version: 4`
@@ -40,4 +40,4 @@ See the [`Info.plist`](https://github.com/mxenabled/ios-connect-demo/blob/main/C
 
 See the [`SceneDelegate.swift->scene(_:openURLContexts:)` method](https://github.com/mxenabled/ios-connect-demo/blob/main/ConnectDemo/SceneDelegate.swift#L60-L86) for examples of how to handle the link back from MX.
 
-See the [OAuth in WebViews docs](https://docs.mx.com/api#dealing_with_oauth_in_webviews) for more detail.
+See the [OAuth in WebViews docs](https://docs.mx.com/api#connect_dealing_with_oauth_in_webviews) for more detail.
