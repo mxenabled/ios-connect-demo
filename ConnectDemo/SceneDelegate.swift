@@ -63,10 +63,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // appscheme://oauth_complete?status=success&member_guid=MBR-1
         // appscheme://oauth_complete?status=error&member_guid=MBR-1
-        if (incomingURL?.scheme == "appscheme" && incomingURL?.host == "oauth_complete") {
+        if (incomingURL?.scheme == "appscheme") {
+            print("Recieved a redirect of: ", incomingURL)
             // This is an OAuth redirect back to the app from MX
             var status = "",
-                memberGuid = ""
+                memberGuid = "",
+                errorReason = ""
 
             let urlc = URLComponents(string: incomingURL?.absoluteString ?? "")
 
@@ -76,12 +78,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     status = item.value!
                 case "member_guid":
                     memberGuid = item.value!
+                case "error_reason":
+                    errorReason = item.value!
                 default:
-                    print("ERROR: Unexpected item in oauth query string", item.name)
+                    print("Unexpected item in oauth query string", item.name)
                 }
             }
 
-            print("Recived a status of: \(status) and member of \(memberGuid)")
+            print("Recived a status: \(status), member: \(memberGuid), errorReason: \(errorReason)")
         }
     }
 }
