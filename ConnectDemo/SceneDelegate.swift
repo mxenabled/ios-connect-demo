@@ -48,12 +48,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     /**
-     Handle URLs that come back to the app. This example in particuarly looks for
+     Handle URLs that come back to the app. This example in particularly looks for
      oauth success and error URLs back.
 
      Note that it is possible to end up with a different member guid than you started
      with. This can happen if the user tried to add a new connection, but ended up
-     using credentials they have already connected with. In this scneario we update
+     using credentials they have already connected with. In this scenario we update
      the existing member and leave the new member in PENDING, which will get deleted
      if unused for a certain amount of time.
      */
@@ -64,7 +64,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // appscheme://oauth_complete?status=success&member_guid=MBR-1
         // appscheme://oauth_complete?status=error&member_guid=MBR-1
         if (incomingURL?.scheme == "appscheme") {
-            print("Recieved a redirect of: ", incomingURL)
+            print("Received a redirect of: ", incomingURL)
             // This is an OAuth redirect back to the app from MX
             var status = "",
                 memberGuid = "",
@@ -85,7 +85,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 }
             }
 
-            print("Recived a status: \(status), member: \(memberGuid), errorReason: \(errorReason)")
+            print("Received a status: \(status), member: \(memberGuid), errorReason: \(errorReason)")
         }
     }
 }
