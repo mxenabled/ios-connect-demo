@@ -26,7 +26,7 @@ It is *imperative* that your native application intercept *all* navigation event
 
 You can see an example of handing events in the [`ConnectController.swift->webView(:decidePolicyFor:decisionHandler:) method`](https://github.com/mxenabled/ios-connect-demo/blob/main/ConnectDemo/ConnectController.swift#L64-L97).
 
-The widget will sometimes use `window.open` instead of an achor tag or `window.location`. There is a separate method for handling this scenario, but the same rules from above apply.
+The widget will sometimes use `window.open` instead of an anchor tag or `window.location`. There is a separate method for handling this scenario, but the same rules from above apply.
 
 You can see an example of handling these events in the [`ConnectController.swift->webView(:createWebViewWith:for:windowFeatures:)` method](https://github.com/mxenabled/ios-connect-demo/blob/main/ConnectDemo/ConnectController.swift#L105-L118)
 
