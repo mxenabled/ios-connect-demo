@@ -6,6 +6,53 @@
 //
 
 import UIKit
+import WebKit
+
+class OAuthSuccess: PostMessage {
+    init(memberGuid: String) {
+        super.init(type: "oauthComplete/success", metadata: ["member_guid": memberGuid])
+    }
+}
+
+class OAuthError: PostMessage {
+    init() {
+        super.init(type: "oauthComplete/error")
+    }
+}
+
+class PostMessage: Encodable {
+    let type: String
+    let metadata: Codable
+
+    init(type: String, metadata: Codable = "{}") {
+        self.type = type
+        self.metadata = metadata
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case mx, type, metadata // swiftlint:disable:this identifier_name
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(true, forKey: .mx)
+        try container.encode(type, forKey: .type)
+        try container.encode(metadata, forKey: .metadata)
+    }
+}
+
+extension WKWebView {
+    func postMessage<T: Encodable>(object: T) async throws {
+        let encoder = JSONEncoder()
+        let data = try encoder.encode(["data": object])
+        guard let json = String(data: data, encoding: .utf8) else {
+            return
+        }
+
+        let source = "window.dispatchEvent(new MessageEvent('message', \(json)));"
+        _ = try await evaluateJavaScript(source)
+    }
+}
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -84,8 +131,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     print("Unexpected item in oauth query string", item.name)
                 }
             }
-
-            print("Received a status: \(status), member: \(memberGuid), errorReason: \(errorReason)")
+            
+            if let view = window?.rootViewController as? ConnectWidgetViewController,
+               let widgetWebView = view.widgetWebView
+            {
+                print("Received a status: \(status), member: \(memberGuid), errorReason: \(errorReason)")
+                print(widgetWebView)
+                
+                let event = status == "success" ?
+                    OAuthSuccess(memberGuid: memberGuid) :
+                    OAuthError()
+                
+                Task { try await widgetWebView.postMessage(object: event) }
+            }
         }
     }
 }
